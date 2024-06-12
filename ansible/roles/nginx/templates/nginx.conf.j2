@@ -1,0 +1,17 @@
+worker_processes {{ worker_processes }};
+
+events {
+    worker_connections {{ worker_connections }};
+}
+
+http {
+    server {
+        listen {{ listen_port }};
+        server_name {{ http_servername }};
+
+        location / {
+            root {{ root_location }};
+            index {{ index_files }};
+        }
+    }
+}

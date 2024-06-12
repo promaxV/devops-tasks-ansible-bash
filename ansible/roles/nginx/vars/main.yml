@@ -1,0 +1,27 @@
+---
+# PACKAGE
+package: nginx
+
+# SERVICE
+service: nginx
+
+
+# CONFIG TEMPLATING
+conf_template: nginx.conf.j2
+conf_dir: /etc/nginx
+conf_dest: "{{ conf_dir }}/nginx.conf"
+log_dir: /var/log/nginx
+error_log: "{{ log_dir }}/error.log"
+access_log: "{{ log_dir }}/access.log"
+
+# NGINX CONFIGURATION
+worker_processes: 1
+worker_connections: 1024
+listen_port: 80
+http_servername: localhost
+root_location: /var/www/html
+index_files: index.html index.htm
+
+# LISTEN NGINX
+ping_delay: 5
+ping_timeout: 30

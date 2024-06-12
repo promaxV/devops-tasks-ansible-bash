@@ -1,0 +1,43 @@
+---
+- name: Ensure {{ package }} is installed
+  apt:
+    name: "{{ package }}"
+    state: present
+    update_cache: yes
+
+- name: Ensure configuration directory for {{ package }} exists
+  file:
+    name: "{{ conf_dir }}"
+    state: directory
+
+- name: Ensure log files for {{ package }} exists
+  file:
+    name: "{{ item }}"
+    state: touch
+  with_items:
+    - "{{ error_log }}"
+    - "{{ access_log }}"
+  
+- name: Configurate {{ package }}
+  template:
+    src: "{{ conf_template }}"
+    dest: "{{ conf_dest }}"
+    mode: '0644'
+    owner: root
+    group: root
+  notify:
+    - restart {{ service }}
+
+- name: Start {{ service }}
+  service:
+    name: "{{ service }}"
+    state: started
+    enabled: true
+
+- name: Check {{ service }} is listening on port {{ listen_port }}
+  wait_for:
+    host: "{{ ansible_host }}"
+    port: "{{ listen_port }}"
+    delay: "{{ ping_delay }}"
+    timeout: "{{ ping_timeout }}"
+    state: started

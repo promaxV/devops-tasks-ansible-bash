@@ -1,0 +1,21 @@
+2024-06-12 15:24:22,961 p=2894806 u=max n=ansible | PLAY [webservers] ***************************************************************************************************************************************************************
+2024-06-12 15:24:22,971 p=2894806 u=max n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************
+2024-06-12 15:24:25,454 p=2894806 u=max n=ansible | [WARNING]: Platform linux on host server1 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change
+the meaning of that path. See https://docs.ansible.com/ansible-core/2.17/reference_appendices/interpreter_discovery.html for more information.
+
+2024-06-12 15:24:25,454 p=2894806 u=max n=ansible | ok: [server1]
+2024-06-12 15:24:25,497 p=2894806 u=max n=ansible | TASK [nginx : Ensure nginx is installed] ****************************************************************************************************************************************
+2024-06-12 15:24:44,323 p=2894806 u=max n=ansible | ok: [server1]
+2024-06-12 15:24:44,337 p=2894806 u=max n=ansible | TASK [nginx : Ensure configuration directory for nginx exists] ******************************************************************************************************************
+2024-06-12 15:24:44,839 p=2894806 u=max n=ansible | ok: [server1]
+2024-06-12 15:24:44,852 p=2894806 u=max n=ansible | TASK [nginx : Ensure log files for nginx exists] ********************************************************************************************************************************
+2024-06-12 15:24:45,206 p=2894806 u=max n=ansible | changed: [server1] => (item=/var/log/nginx/error.log)
+2024-06-12 15:24:45,546 p=2894806 u=max n=ansible | changed: [server1] => (item=/var/log/nginx/access.log)
+2024-06-12 15:24:45,560 p=2894806 u=max n=ansible | TASK [nginx : Configurate nginx] ************************************************************************************************************************************************
+2024-06-12 15:24:46,355 p=2894806 u=max n=ansible | ok: [server1]
+2024-06-12 15:24:46,369 p=2894806 u=max n=ansible | TASK [nginx : Start nginx] ******************************************************************************************************************************************************
+2024-06-12 15:24:47,265 p=2894806 u=max n=ansible | ok: [server1]
+2024-06-12 15:24:47,289 p=2894806 u=max n=ansible | TASK [nginx : Check nginx is listening on port 80] ******************************************************************************************************************************
+2024-06-12 15:24:52,793 p=2894806 u=max n=ansible | ok: [server1]
+2024-06-12 15:24:52,860 p=2894806 u=max n=ansible | PLAY RECAP **********************************************************************************************************************************************************************
+2024-06-12 15:24:52,860 p=2894806 u=max n=ansible | server1                    : ok=7    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
