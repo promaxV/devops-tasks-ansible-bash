@@ -1,0 +1,32 @@
+#!/bin/bash
+
+SMTP_SERVER="smtp.domain.com:587"
+SMTP_USER="useradress@domain.com"
+SMTP_PASS="pAsSw0rD_"
+
+TO_EMAIL="toemail@domain.com"
+FROM_EMAIL="fromemail@domain.com"
+
+DISK="/dev/sda"
+THRESHOLD=85
+
+USED_PERCENT=$(df -h | grep $DISK | awk '{print $5}' | sed 's/%//')
+echo "Disk usage: $USED_PERCENT%"
+
+if [ "$USED_PERCENT" -gt "$THRESHOLD" ]; then
+    SUBJECT="Disk Space Alert on $(hostname)"
+    BODY="Warning: The disk usage on $(hostname) is above ${THRESHOLD}%. Current usage is ${USED_PERCENT}%."
+
+    curl --url "$SMTP_SERVER" \
+         --ssl-reqd \
+         --mail-from "$FROM_EMAIL" \
+         --mail-rcpt "$TO_EMAIL" \
+         --upload-file - \
+         --user "$SMTP_USER:$SMTP_PASS" <<EOF
+From: $FROM_EMAIL
+To: $TO_EMAIL
+Subject: $SUBJECT
+
+$BODY
+EOF
+fi
